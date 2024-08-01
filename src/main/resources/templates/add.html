@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/admin/createUser}" th:object="${user}">
+    <div>
+        <label for="userName">Enter username :</label>
+        <input type="text" th:field="*{username}" id="username"/>
+        <div style="color:darkred" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+    </div>
+    <div>
+        <label for="password">Enter password :</label>
+        <input type="text" th:field="*{password}" id="password"/>
+    </div>
+    <div>
+        <label for="age">Enter age :</label>
+        <input type="text" th:field="*{age}" id="age"/>
+        <div style="color:darkred" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+    </div>
+    <div>
+        <label for="email">Enter email :</label>
+        <input type="text" th:field="*{email}" id="email"/>
+        <div style="color:darkred" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+    </div>
+    <label>Roles:</label>
+    <div th:each="role : ${allRoles}">
+        <label>
+            <input type="checkbox" th:value="${role.id}" th:field="*{roles}" />
+        </label>
+        <span th:text="${role.name}">Role Name</span>
+    </div>
+
+    <br/>
+    <input type="submit" value="Create!"/>
+    <br/>
+
+</form>
+<form th:action="@{/logout}" method="get">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>
